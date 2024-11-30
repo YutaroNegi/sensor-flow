@@ -5,13 +5,12 @@ import { CreateSensorDataDto } from './dto/create-sensor-data.dto';
 
 @Injectable()
 export class SensorDataService {
-  private dynamoDb: DynamoDB.DocumentClient;
   private tableName: string;
 
-  constructor(private configService: ConfigService) {
-    this.dynamoDb = new DynamoDB.DocumentClient({
-      region: this.configService.get<string>('AWS_REGION'),
-    });
+  constructor(
+    private configService: ConfigService,
+    private dynamoDb: DynamoDB.DocumentClient,
+  ) {
     this.tableName = this.configService.get<string>('DYNAMODB_TABLE_NAME');
   }
 
