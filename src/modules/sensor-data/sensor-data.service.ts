@@ -14,7 +14,9 @@ export class SensorDataService {
     this.tableName = this.configService.get<string>('DYNAMODB_TABLE_NAME');
   }
 
-  async createSensorData(createSensorDataDto: CreateSensorDataDto): Promise<any> {
+  async createSensorData(
+    createSensorDataDto: CreateSensorDataDto,
+  ): Promise<any> {
     const params: DynamoDB.DocumentClient.PutItemInput = {
       TableName: this.tableName,
       Item: {
