@@ -29,7 +29,7 @@ describe('SensorDataService', () => {
           },
         },
         {
-          provide: DynamoDB.DocumentClient,
+          provide: 'DynamoDBDocumentClient',
           useValue: dynamoDbMock,
         },
       ],
@@ -55,6 +55,7 @@ describe('SensorDataService', () => {
       } as any);
 
       const result = await service.createSensorData(dto);
+
       expect(dynamoDbMock.put).toHaveBeenCalledWith({
         TableName: 'SensorDataTable',
         Item: {
@@ -73,9 +74,11 @@ describe('SensorDataService', () => {
         timestamp: '2023-02-15T01:30:00.000-05:00',
         value: 78.42,
       };
+
       dynamoDbMock.put.mockReturnValue({
         promise: jest.fn().mockRejectedValue(new Error('DynamoDB Error')),
       } as any);
+
       await expect(service.createSensorData(dto)).rejects.toThrow(
         'Error saving data to DynamoDB: DynamoDB Error',
       );
