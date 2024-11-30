@@ -1,17 +1,18 @@
 # Sensor Flow API
 
-**Sensor Flow API** é uma API desenvolvida para receber registro de sensores.
+**Sensor Flow API** é uma API desenvolvida para receber e gerenciar registros de sensores.
+
+---
 
 ## Funcionalidades Implementadas
 
-### Autenticação
+### **Autenticação**
 A API conta com um sistema de autenticação baseado em **Cognito**, com suporte a cookies HTTP-only para segurança. A autenticação atual permite:
 
 - **Login**: Autenticação de usuários utilizando `username` e `password`.
   - Gera um token JWT com validade de 1 hora.
   - O token é armazenado em um cookie seguro `httpOnly`.
-
-#### Endpoints
+#### **Endpoints**
 
 - **POST `/auth/login`**
   - Realiza o login utilizando credenciais no formato Basic Auth.
@@ -26,8 +27,11 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
   - Realiza o logout do usuário.
   - Remove o cookie de autenticação.
 
-### Registro de Sensores
-#### Endpoints
+---
+
+### **Registro de Sensores**
+
+#### **Endpoints**
 
 - **POST `/sensor-data`**
   - Recebe os dados de sensores no formato JSON:
@@ -39,6 +43,7 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
     }
     ```
   - Armazena os dados no **DynamoDB** com as colunas:
+    - `id` (UUID gerado automaticamente)
     - `equipmentId`
     - `timestamp`
     - `value`
@@ -52,10 +57,23 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
   - Armazena o arquivo CSV no **AWS S3** para processamento posterior via Lambda.
   - Retorna uma mensagem de sucesso e o nome do arquivo armazenado.
 
-### Estrutura Modular
+---
+
+### **Processamento de Arquivos com Lambda**
+
+Uma função Lambda em Python é responsável por processar os arquivos CSV enviados para o S3. Esta função:
+- Lê o arquivo CSV utilizando `pandas`.
+- Insere cada linha do arquivo no DynamoDB com as colunas:
+  - `id` (UUID gerado automaticamente)
+  - `equipmentId`
+  - `timestamp`
+  - `value`
+  - `register_time`
+
+### **Estrutura Modular**
 A aplicação foi projetada com uma estrutura modular utilizando o framework **NestJS**.
 
-#### Módulos
+#### **Módulos**
 
 1. **Auth Module**:
    - Implementa a autenticação via Cognito.
@@ -64,9 +82,9 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
      - `AuthController`
      - `AuthService`
      - `JwtStrategy`
+
 2. **SensorData Module**:
-   - Gerencia o registro de dados de sensores.
-   - Upload de arquivos CSV
+   - Gerencia o registro de dados de sensores e upload de arquivos CSV.
    - Contém:
      - `SensorDataController`
      - `SensorDataService`
@@ -86,32 +104,36 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
 - **NestJS**
 - **AWS Cognito**
 - **DynamoDB**
+- **AWS S3**
+- **AWS Lambda**
+- **Python**
 
 ---
 
 ## Como Executar o Projeto
 
-1. Clone o repositório:
+1. **Clone o repositório:**
    ```bash
    git clone https://github.com/seu-usuario/sensor-flow.git
    cd sensor-flow
    ```
 
-2. Instale as dependências:
+2. **Instale as dependências:**
    ```bash
    npm install
    ```
 
-3. Configure as variáveis de ambiente no arquivo `.env`:
+3. **Configure as variáveis de ambiente no arquivo `.env`:**
    ```
    AWS_REGION=seu-regiao
    COGNITO_CLIENT_ID=seu-client-id
    COGNITO_CLIENT_SECRET=seu-client-secret
    COGNITO_AUTH_URI=seu-auth-uri
    DYNAMODB_TABLE_NAME=sensor-data-table
+   S3_BUCKET_NAME=sensor-data-bucket
    ```
 
-4. Execute a aplicação:
+4. **Execute a aplicação:**
    ```bash
    npm run start
    ```
