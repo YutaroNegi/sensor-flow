@@ -118,10 +118,15 @@ describe('SensorDataService', () => {
         originalname: 'data.csv',
         encoding: '7bit',
         mimetype: 'text/csv',
-        buffer: Buffer.from('equipmentId,timestamp,value\nEQ-12495,2023-02-15T01:30:00.000-05:00,78.42'),
+        buffer: Buffer.from(
+          'equipmentId,timestamp,value\nEQ-12495,2023-02-15T01:30:00.000-05:00,78.42',
+        ),
         size: 100,
       };
-      const expectedResult = { message: 'File uploaded successfully', fileName: 'unique-id-data.csv' };
+      const expectedResult = {
+        message: 'File uploaded successfully',
+        fileName: 'unique-id-data.csv',
+      };
       s3Mock.putObject.mockReturnValue({
         promise: jest.fn().mockResolvedValue({}),
       } as any);
@@ -145,7 +150,9 @@ describe('SensorDataService', () => {
         originalname: 'data.csv',
         encoding: '7bit',
         mimetype: 'text/csv',
-        buffer: Buffer.from('equipmentId,timestamp,value\nEQ-12495,2023-02-15T01:30:00.000-05:00,78.42'),
+        buffer: Buffer.from(
+          'equipmentId,timestamp,value\nEQ-12495,2023-02-15T01:30:00.000-05:00,78.42',
+        ),
         size: 100,
       };
 
