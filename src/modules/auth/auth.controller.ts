@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Res, BadRequestException, Headers, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Res,
+  BadRequestException,
+  Headers,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
@@ -15,7 +23,9 @@ export class AuthController {
     }
 
     const base64Credentials = authHeader.split(' ')[1];
-    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+    const credentials = Buffer.from(base64Credentials, 'base64').toString(
+      'ascii',
+    );
     const [username, password] = credentials.split(':');
 
     try {
