@@ -25,9 +25,11 @@ export class SensorDataService {
   async createSensorData(
     createSensorDataDto: CreateSensorDataDto,
   ): Promise<any> {
+    const id = uuidv4();
     const params: DynamoDB.DocumentClient.PutItemInput = {
       TableName: this.tableName,
       Item: {
+        id,
         equipmentId: createSensorDataDto.equipmentId,
         timestamp: createSensorDataDto.timestamp,
         value: createSensorDataDto.value,
@@ -37,7 +39,7 @@ export class SensorDataService {
 
     try {
       await this.dynamoDb.put(params).promise();
-      return { message: 'Data saved successfully' };
+      return { message: 'Data saved successfully', id };
     } catch (error) {
       throw new Error(`Error saving data to DynamoDB: ${error.message}`);
     }
