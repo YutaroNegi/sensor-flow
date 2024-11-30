@@ -59,7 +59,7 @@ describe('SensorDataService', () => {
   });
 
   describe('createSensorData', () => {
-    it('should save sensor data sucessufully', async () => {
+    it('should save sensor data successfully', async () => {
       const dto: CreateSensorDataDto = {
         equipmentId: 'EQ-12495',
         timestamp: '2023-02-15T01:30:00.000-05:00',
@@ -75,13 +75,17 @@ describe('SensorDataService', () => {
       expect(dynamoDbMock.put).toHaveBeenCalledWith({
         TableName: 'SensorDataTable',
         Item: {
+          id: 'unique-id',
           equipmentId: dto.equipmentId,
           timestamp: dto.timestamp,
           value: dto.value,
           register_time: expect.any(String),
         },
       });
-      expect(result).toEqual({ message: 'Data saved successfully' });
+      expect(result).toEqual({
+        message: 'Data saved successfully',
+        id: 'unique-id',
+      });
     });
 
     it('Should throw an error when DB fails', async () => {
@@ -101,6 +105,7 @@ describe('SensorDataService', () => {
       expect(dynamoDbMock.put).toHaveBeenCalledWith({
         TableName: 'SensorDataTable',
         Item: {
+          id: 'unique-id',
           equipmentId: dto.equipmentId,
           timestamp: dto.timestamp,
           value: dto.value,
@@ -143,6 +148,7 @@ describe('SensorDataService', () => {
       });
       expect(result).toEqual(expectedResult);
     });
+
     it('should return error when S3 fails ', async () => {
       // Arrange
       const file: any = {
