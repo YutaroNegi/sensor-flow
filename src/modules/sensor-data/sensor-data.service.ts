@@ -1,17 +1,25 @@
-import { Injectable, Inject } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { DynamoDB } from 'aws-sdk';
+import { DynamoDB, S3 } from 'aws-sdk';
 import { CreateSensorDataDto } from './dto/create-sensor-data.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class SensorDataService {
   private tableName: string;
+  private s3BucketName: string;
 
   constructor(
     private configService: ConfigService,
     @Inject('DynamoDBDocumentClient') private dynamoDb: DynamoDB.DocumentClient,
+    @Inject('S3Client') private s3: S3,
   ) {
     this.tableName = this.configService.get<string>('DYNAMODB_TABLE_NAME');
+    this.s3BucketName = this.configService.get<string>('S3_BUCKET_NAME');
   }
 
   async createSensorData(
@@ -32,6 +40,25 @@ export class SensorDataService {
       return { message: 'Data saved successfully' };
     } catch (error) {
       throw new Error(`Error saving data to DynamoDB: ${error.message}`);
+    }
+  }
+
+  async uploadCsvFile(file: Express.Multer.File): Promise<any> {
+    const fileName = `${uuidv4()}-${file.originalname}`;
+    const params: S3.PutObjectRequest = {
+      Bucket: this.s3BucketName,
+      Key: fileName,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+    };
+
+    try {
+      await this.s3.putObject(params).promise();
+      return { message: 'File uploaded successfully', fileName };
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Error uploading file to S3: ${error.message}`,
+      );
     }
   }
 }
