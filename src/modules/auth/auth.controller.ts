@@ -1,6 +1,7 @@
-import { Controller, Post, Res, BadRequestException, Headers } from '@nestjs/common';
+import { Controller, Get, Post, Res, BadRequestException, Headers, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
+import { JwtStrategy } from './jwt.strategy';
 
 @Controller('auth')
 export class AuthController {
@@ -32,5 +33,12 @@ export class AuthController {
     } catch (error) {
       throw new BadRequestException(error.message);
     }
+  }
+
+  @UseGuards(JwtStrategy)
+  @Get('me')
+  async getMe(@Res() res: Response, @Headers() headers: any) {
+    const user = headers.user;
+    return res.send({ user });
   }
 }
