@@ -43,7 +43,15 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
     - `timestamp`
     - `value`
     - `register_time`
-    
+
+- **POST `/sensor-data/upload-csv`**
+  - Recebe um arquivo CSV contendo as colunas:
+    - `equipmentId`
+    - `timestamp`
+    - `value`
+  - Armazena o arquivo CSV no **AWS S3** para processamento posterior via Lambda.
+  - Retorna uma mensagem de sucesso e o nome do arquivo armazenado.
+
 ### Estrutura Modular
 A aplicação foi projetada com uma estrutura modular utilizando o framework **NestJS**.
 
@@ -56,9 +64,9 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
      - `AuthController`
      - `AuthService`
      - `JwtStrategy`
-
 2. **SensorData Module**:
    - Gerencia o registro de dados de sensores.
+   - Upload de arquivos CSV
    - Contém:
      - `SensorDataController`
      - `SensorDataService`
