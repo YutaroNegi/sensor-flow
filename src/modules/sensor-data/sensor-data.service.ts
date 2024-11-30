@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DynamoDB } from 'aws-sdk';
 import { CreateSensorDataDto } from './dto/create-sensor-data.dto';
@@ -9,7 +9,7 @@ export class SensorDataService {
 
   constructor(
     private configService: ConfigService,
-    private dynamoDb: DynamoDB.DocumentClient,
+    @Inject('DynamoDBDocumentClient') private dynamoDb: DynamoDB.DocumentClient,
   ) {
     this.tableName = this.configService.get<string>('DYNAMODB_TABLE_NAME');
   }
