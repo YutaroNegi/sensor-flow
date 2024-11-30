@@ -41,4 +41,14 @@ export class AuthController {
     const user = headers.user;
     return res.send({ user });
   }
+
+  @Post('logout')
+  async logout(@Res() res: Response) {
+    res.clearCookie('Authentication', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
+    return res.send({ message: 'Logout successful' });
+  }
 }
