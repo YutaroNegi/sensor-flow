@@ -1,0 +1,36 @@
+import { Controller, Post, Res, BadRequestException, Headers } from '@nestjs/common';
+import { Response } from 'express';
+import { AuthService } from './auth.service';
+
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
+  @Post('login')
+  async login(@Res() res: Response, @Headers() headers: any) {
+    const authHeader = headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Basic ')) {
+      throw new BadRequestException('Missing or invalid authorization header');
+    }
+
+    const base64Credentials = authHeader.split(' ')[1];
+    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+    const [username, password] = credentials.split(':');
+
+    try {
+      const idToken = await this.authService.authenticate(username, password);
+
+      // set http only cookie for 1h
+      res.cookie('Authentication', idToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        maxAge: 3600 * 1000,
+      });
+
+      return res.send({ message: 'Login successful' });
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+}
