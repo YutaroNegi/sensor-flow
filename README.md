@@ -26,6 +26,24 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
   - Realiza o logout do usuário.
   - Remove o cookie de autenticação.
 
+### Registro de Sensores
+#### Endpoints
+
+- **POST `/sensor-data`**
+  - Recebe os dados de sensores no formato JSON:
+    ```json
+    {
+      "equipmentId": "EQ-12495",
+      "timestamp": "2023-02-15T01:30:00.000-05:00",
+      "value": 78.42
+    }
+    ```
+  - Armazena os dados no **DynamoDB** com as colunas:
+    - `equipmentId`
+    - `timestamp`
+    - `value`
+    - `register_time`
+    
 ### Estrutura Modular
 A aplicação foi projetada com uma estrutura modular utilizando o framework **NestJS**.
 
@@ -39,11 +57,17 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
      - `AuthService`
      - `JwtStrategy`
 
-2. **App Module**:
+2. **SensorData Module**:
+   - Gerencia o registro de dados de sensores.
+   - Contém:
+     - `SensorDataController`
+     - `SensorDataService`
+
+3. **App Module**:
    - Ponto de entrada principal da aplicação.
    - Integra os módulos de autenticação e monitoramento de saúde.
 
-3. **Config Module**:
+4. **Config Module**:
    - Carrega variáveis de ambiente globais usando `@nestjs/config`.
 
 ---
@@ -76,10 +100,10 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
    COGNITO_CLIENT_ID=seu-client-id
    COGNITO_CLIENT_SECRET=seu-client-secret
    COGNITO_AUTH_URI=seu-auth-uri
+   DYNAMODB_TABLE_NAME=sensor-data-table
    ```
 
 4. Execute a aplicação:
    ```bash
    npm run start
    ```
-
