@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HealthController } from './health.controller';
 import { HealthService } from './health.service';
 
-
 describe('HealthController', () => {
   let healthController: HealthController;
 
@@ -14,7 +13,7 @@ describe('HealthController', () => {
 
     healthController = app.get<HealthController>(HealthController);
   });
- 
+
   describe('root', () => {
     it('should return "ok"', () => {
       expect(healthController.healthCheck()).toBe('ok');
