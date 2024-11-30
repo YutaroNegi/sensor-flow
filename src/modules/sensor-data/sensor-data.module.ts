@@ -38,6 +38,5 @@ import * as https from 'https';
       inject: [ConfigService],
     },
   ],
-
 })
 export class SensorDataModule {}
