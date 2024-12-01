@@ -167,6 +167,23 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
 
 ---
 
+## Infraestrutura e CI/CD
+
+A aplicação utiliza **AWS SAM** para definição da infraestrutura como código e **AWS CodeBuild** para pipelines de CI/CD. A seguir, detalhamos os principais arquivos de configuração utilizados.
+
+### Infraestrutura com AWS SAM
+
+O arquivo `template.yaml` define os recursos necessários na AWS para a aplicação **Sensor Flow**, incluindo buckets S3, tabelas DynamoDB, funções Lambda e repositórios ECR.
+
+### Pipelines de Build com AWS CodeBuild
+
+Existem dois arquivos `buildspec` para gerenciar diferentes partes da aplicação:
+
+1. **buildspec.yml**: Para construir e empacotar as funções Lambda e a infraestrutura com AWS SAM.
+2. **buildspec-nest.yml**: Para construir e publicar a aplicação NestJS no Amazon ECR.
+
+---
+
 ## Como Executar o Projeto
 
 1. **Clone o repositório:**
