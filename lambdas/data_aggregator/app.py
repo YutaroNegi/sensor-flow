@@ -30,11 +30,12 @@ def update_aggregate_table(equipment_id, interval_start_unix, value):
         aggregate_table = dynamodb.Table(os.environ["AGGREGATE_TABLE_NAME"])
         aggregate_table.update_item(
             Key={"equipmentId": equipment_id, "intervalStartTime": interval_start_unix},
-            UpdateExpression="SET totalValue = if_not_exists(totalValue, :zero) + :val, sampleCount = if_not_exists(sampleCount, :zero) + :one",
+            UpdateExpression="SET totalValue = if_not_exists(totalValue, :zero) + :val, sampleCount = if_not_exists(sampleCount, :zero) + :one, partitionKey = :global",
             ExpressionAttributeValues={
                 ":val": value,
                 ":one": Decimal(1),
                 ":zero": Decimal(0),
+                ":global": "GLOBAL",
             },
             ReturnValues="UPDATED_NEW",
         )
