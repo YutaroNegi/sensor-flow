@@ -34,17 +34,17 @@ Resources:
   SensorFlowAggregatedTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub "sensor-flow-aggregated-table-${Env}"
+      TableName: !Sub "sensor-flow-aggregated-${Env}"
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
-        - AttributeName: id
+        - AttributeName: equipmentId
           AttributeType: S
         - AttributeName: intervalStartTime
           AttributeType: N
         - AttributeName: partitionKey
           AttributeType: S
       KeySchema:
-        - AttributeName: id
+        - AttributeName: equipmentId
           KeyType: HASH
         - AttributeName: intervalStartTime
           KeyType: RANGE
