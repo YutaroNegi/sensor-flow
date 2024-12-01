@@ -10,7 +10,7 @@ phases:
       - echo Pre-build phase...
   build:
     commands:
-      - sam build --template-file template.yaml
+      - sam build --template-file template.yaml --use-container
       - sam package --template-file template.yaml --s3-bucket $BUCKET --output-template-file packaged-template.yaml
 artifacts:
   files:
