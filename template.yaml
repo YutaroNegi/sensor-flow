@@ -84,6 +84,17 @@ Resources:
                 Rules:
                   - Name: suffix
                     Value: .csv
+                    
+  SensorFlowECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Sub "sensor-flow-repo-${Env}"
+      ImageScanningConfiguration:
+        scanOnPush: true
+      Tags:
+        - Key: Environment
+          Value: !Ref Env
+
 
   DataAggregatorFunction:
     Type: AWS::Serverless::Function
