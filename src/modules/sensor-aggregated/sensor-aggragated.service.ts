@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, HttpException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DynamoDB } from 'aws-sdk';
 import { GetSensorAggregatedDto } from './dto/create-aggregated.dto';
@@ -28,8 +28,9 @@ export class SensorAggregatedService {
 
     const hours = intervalMap[interval];
     if (!hours) {
-      throw new Error(
-        'Invalid interval provided. Use "24h", "48h", "1w", or "1m".',
+      throw new HttpException(
+        'Invalid interval. Supported values are 24h, 48h, 1w, 1m',
+        400
       );
     }
 
@@ -83,9 +84,7 @@ export class SensorAggregatedService {
         items,
       };
     } catch (error) {
-      throw new Error(
-        `Error retrieving aggregated sensor data in DynamoDB: ${error.message}`,
-      );
+      throw new HttpException(error.message, 500);
     }
   }
 }
