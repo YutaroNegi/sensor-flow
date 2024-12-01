@@ -4,7 +4,6 @@ phases:
   install:
     runtime-versions:
       nodejs: 20
-      docker: 19
     commands:
       - echo "Install phase..."
       - npm install -g @nestjs/cli
