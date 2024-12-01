@@ -48,7 +48,7 @@ Resources:
       KeySchema:
         - AttributeName: id
           KeyType: HASH
-        - AttributeName: timestamp
+        - AttributeName: intervalStartTime
           KeyType: RANGE
       GlobalSecondaryIndexes:
         - IndexName: partitionKey-intervalStartTime-index
