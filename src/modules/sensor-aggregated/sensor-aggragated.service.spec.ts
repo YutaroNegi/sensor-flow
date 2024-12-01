@@ -22,4 +22,30 @@ describe('SensorAggregatedService', () => {
     it('should be defined', () => {
         expect(service).toBeDefined();
     });
+
+    it('should return correct average for valid interval "24h"', async () => {
+        const mockItems = [
+            { totalValue: 100, sampleCount: 10 },
+            { totalValue: 200, sampleCount: 20 },
+        ];
+
+        (dynamoDb.query as jest.Mock).mockReturnValue({
+            promise: jest.fn().mockResolvedValue({
+                Items: mockItems,
+                LastEvaluatedKey: null,
+            }),
+        });
+
+        const result = await service.get({ interval: '24h' });
+
+        expect(result.average).toBe(300 / 30);
+        expect(result.totalCount).toBe(30);
+        expect(result.items).toEqual(mockItems);
+    });
+
+    it('should throw an error for invalid interval', async () => {
+        await expect(service.get({ interval: 'invalid' as any })).rejects.toThrow(
+            'Invalid interval provided. Use "24h", "48h", "1w", or "1m".',
+        );
+    });
 });
