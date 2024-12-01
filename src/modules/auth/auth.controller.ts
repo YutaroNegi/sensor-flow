@@ -6,10 +6,11 @@ import {
   BadRequestException,
   Headers,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -34,8 +35,9 @@ export class AuthController {
       // set http only cookie for 1h
       res.cookie('Authentication', idToken, {
         httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
         maxAge: 3600 * 1000,
       });
 
@@ -45,19 +47,19 @@ export class AuthController {
     }
   }
 
-  @UseGuards(JwtStrategy)
+  @UseGuards(AuthGuard('jwt'))
   @Get('me')
-  async getMe(@Res() res: Response, @Headers() headers: any) {
-    const user = headers.user;
-    return res.send({ user });
+  async getMe(@Request() req: any, @Headers() headers: any, @Res() res: Response) {
+    return res.send({ message: 'ok' });
   }
 
   @Post('logout')
   async logout(@Res() res: Response) {
     res.clearCookie('Authentication', {
       httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
     });
     return res.send({ message: 'Logout successful' });
   }
