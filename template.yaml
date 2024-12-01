@@ -21,8 +21,6 @@ Resources:
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
-        - AttributeName: equipmentId
-          AttributeType: S
         - AttributeName: timestamp
           AttributeType: S
       KeySchema:
