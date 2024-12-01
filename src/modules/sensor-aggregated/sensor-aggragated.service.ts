@@ -30,7 +30,7 @@ export class SensorAggregatedService {
     if (!hours) {
       throw new HttpException(
         'Invalid interval. Supported values are 24h, 48h, 1w, 1m',
-        400
+        400,
       );
     }
 
