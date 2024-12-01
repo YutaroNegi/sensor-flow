@@ -1,6 +1,6 @@
 # Sensor Flow API
 
-**Sensor Flow API** é uma API desenvolvida para receber e gerenciar registros de sensores.
+**Sensor Flow API** é uma API desenvolvida para receber, processar e gerenciar registros de sensores.
 
 ---
 
@@ -12,6 +12,7 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
 - **Login**: Autenticação de usuários utilizando `username` e `password`.
   - Gera um token JWT com validade de 1 hora.
   - O token é armazenado em um cookie seguro `httpOnly`.
+
 #### **Endpoints**
 
 - **POST `/auth/login`**
@@ -59,6 +60,43 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
 
 ---
 
+### **Listagem de Dados Agregados**
+
+#### **Endpoints**
+
+- **GET `/sensor-data/aggregated`**
+  - Consulta dados agregados da tabela `aggregated` no DynamoDB.
+  - Suporta filtros dinâmicos:
+    - `24h`: últimas 24 horas
+    - `48h`: últimas 48 horas
+    - `1w`: última semana
+    - `1m`: último mês
+  - Parâmetros de consulta:
+    - `interval`: Especifica o intervalo de tempo (`24h`, `48h`, `1w`, `1m`).
+
+  - Exemplo de requisição:
+    ```http
+    GET /sensor-data/aggregated?interval=24h
+    ```
+
+  - Exemplo de resposta:
+    ```json
+    {
+      "average": 78.42,
+      "totalCount": 20,
+      "items": [
+        {
+          "equipmentId": "EQ-12495",
+          "intervalStart": 1693468800,
+          "totalValue": 1500.75,
+          "sampleCount": 20
+        }
+      ]
+    }
+    ```
+
+---
+
 ### **Processamento de Arquivos com Lambda**
 
 Uma função Lambda em Python é responsável por processar os arquivos CSV enviados para o S3. Esta função:
@@ -70,7 +108,26 @@ Uma função Lambda em Python é responsável por processar os arquivos CSV envi
   - `value`
   - `register_time`
 
-### **Estrutura Modular**
+---
+
+### **Popular Dados Agregados**
+
+Uma função Lambda em python é acionada via **DynamoDB Streams** para popular a tabela de agregados com base nos dados da tabela de escrita. Esta função:
+
+1. Processa eventos do **DynamoDB Streams**.
+2. Para cada evento:
+   - Extrai as informações do equipamento, timestamp e valor.
+   - Determina o intervalo de tempo (`intervalStart` arredondado para a hora cheia).
+   - Atualiza ou cria o registro correspondente na tabela de agregados.
+3. A tabela de agregados tem as seguintes colunas:
+   - `partitionKey`: Valor fixo (`GLOBAL`) para consultas eficientes.
+   - `equipmentId`: Identificação do equipamento.
+   - `intervalStart`: Timestamp do início do intervalo.
+   - `totalValue`: Soma dos valores agregados.
+   - `sampleCount`: Número de amostras no intervalo.
+
+## **Estrutura Modular**
+
 A aplicação foi projetada com uma estrutura modular utilizando o framework **NestJS**.
 
 #### **Módulos**
@@ -130,6 +187,7 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
    COGNITO_CLIENT_SECRET=seu-client-secret
    COGNITO_AUTH_URI=seu-auth-uri
    DYNAMODB_TABLE_NAME=sensor-data-table
+   DYNAMODB_AGGREGATE_TABLE_NAME=aggregated-data-table
    S3_BUCKET_NAME=sensor-data-bucket
    ```
 
