@@ -45,7 +45,7 @@ describe('SensorAggregatedService', () => {
 
   it('should throw an error for invalid interval', async () => {
     await expect(service.get({ interval: 'invalid' as any })).rejects.toThrow(
-      'Invalid interval provided. Use "24h", "48h", "1w", or "1m".',
+      'Invalid interval. Supported values are 24h, 48h, 1w, 1m',
     );
   });
 });
