@@ -1,0 +1,112 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Template para configurar a função Lambda
+
+Parameters:
+  Env:
+    Type: String
+    Default: dev
+
+Resources:
+  SensorFlowBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "sensor-flow-bucket-${Env}"
+
+  SensorFlowDataTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "sensor-flow-data-table-${Env}"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: equipmentId
+          AttributeType: S
+        - AttributeName: timestamp
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: timestamp
+          KeyType: RANGE
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+  SensorFlowAggregatedTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "sensor-flow-aggregated-table-${Env}"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: intervalStartTime
+          AttributeType: N
+        - AttributeName: partitionKey
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: timestamp
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: partitionKey-intervalStartTime-index
+          KeySchema:
+            - AttributeName: partitionKey
+              KeyType: HASH
+            - AttributeName: intervalStartTime
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+
+  EtlCsvFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/csv_etl/
+      Handler: app.lambda_handler
+      FunctionName: !Sub "sensor-flow-etl-csv-${Env}"
+      Runtime: python3.9
+      Policies:
+        - AmazonS3FullAccess
+        - AmazonDynamoDBFullAccess
+      Timeout: 900
+      Environment:
+        Variables:
+          ENV: !Ref Env
+          DYNAMODB_TABLE: !Ref SensorFlowDataTable
+      Events:
+        S3Trigger:
+          Type: S3
+          Properties:
+            Bucket: !Ref SensorFlowBucket
+            Events: s3:ObjectCreated:*
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: suffix
+                    Value: .csv
+
+  DataAggregatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/data_aggregator/
+      Handler: app.lambda_handler
+      FunctionName: !Sub "sensor-flow-data-aggregator-${Env}"
+      Runtime: python3.9
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - AWSLambdaDynamoDBExecutionRole
+      Timeout: 900
+      Environment:
+        Variables:
+          ENV: !Ref Env
+          AGGREGATE_TABLE_NAME: !Ref SensorFlowAggregatedTable
+      Events:
+        DynamoDBTrigger:
+          Type: DynamoDB
+          Properties:
+            Stream: !GetAtt SensorFlowDataTable.StreamArn
+            StartingPosition: LATEST
+            BatchSize: 100
+            Enabled: true
