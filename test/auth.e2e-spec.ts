@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('AuthController (e2e)', () => {
+describe('Auth module integration tests', () => {
   let app: INestApplication;
   let authCookie: string;
 

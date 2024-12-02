@@ -3,7 +3,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('SensorDataAggregatedController', () => {
+describe('Aggregated data module integration tests', () => {
   let app: INestApplication;
   let accessToken: string;
 

@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import * as path from 'path';
 
-describe('SensorDataController (Integration)', () => {
+describe('Sensor data integration tests', () => {
   let app: INestApplication;
   let accessToken: string;
 
