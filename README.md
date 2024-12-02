@@ -329,15 +329,6 @@ O projeto inclui testes de integração para garantir o funcionamento correto do
 
 ## **Testes de Carga**
 
-Testes de carga utilizando o **Locust** com diferentes volumes de requisições:
-
-- [500 requisições](locust/locust-500-users.html)
-- [1.000 requisições](locust/locust-1000-users.html)
-- [5.000 requisições](locust/locust-5000-users.html)
-- [10.000 requisições](locust/locust-10000-users.html)
-
-Clique nos links acima para visualizar os resultados detalhados de cada teste. Cada relatório abrirá em uma nova aba para facilitar a análise.
-
 Como executar Locust:
 
 ```bash
@@ -345,3 +336,12 @@ locust -f locust/locustfile.py
 ```
 
 em seguida, acesse `http://localhost:8089` para configurar e iniciar os testes de carga.
+
+Resultados dos testes de carga utilizando o Locust com diferentes volumes de requisições:
+
+- [Baixar relatório: 500 requisições](locust/locust-500-users.html)
+- [Baixar relatório: 1.000 requisições](locust/locust-1000-users.html)
+- [Baixar relatório: 5.000 requisições](locust/locust-5000-users.html)
+- [Baixar relatório: 10.000 requisições](locust/locust-10000-users.html)
+
+Para visualizar, faça o download do arquivo e abra-o no navegador da sua máquina.
