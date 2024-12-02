@@ -32,6 +32,7 @@
 
 **Sensor Flow API** é uma API desenvolvida para receber, processar e gerenciar registros de sensores.
 
+![Demo](./using-app.gif)
 
 ## **Como Acessar a Aplicação**
 
@@ -121,6 +122,10 @@ else:
     print(f"Erro ao obter o token: {response.status_code} {response.text}")
     exit()
 ```
+
+Também foi adicionado um exemplo de envio de dados de sensores localizado em [./send_data_example.py](./send_data_example.py)
+
+
 ---
 
 
