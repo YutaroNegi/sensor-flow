@@ -164,7 +164,6 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
 - **AWS S3**
 - **AWS Lambda**
 - **Python**
-- **AWS APP Runner**
 
 ---
 
@@ -178,10 +177,26 @@ O arquivo `template.yaml` define os recursos necessários na AWS para a aplicaç
 
 ### Pipelines de Build com AWS CodeBuild
 
-Existem dois arquivos `buildspec` para gerenciar diferentes partes da aplicação:
+A pipeline de CI/CD é acionada por commits na branch main. O processo de build segue os seguintes passos:
 
-1. **buildspec.yml**: Para construir e empacotar as funções Lambda e a infraestrutura com AWS SAM.
-2. **buildspec-nest.yml**: Para construir e publicar a aplicação NestJS no Amazon ECR.
+1. **Build dos Lambdas:**
+   - Utiliza o arquivo `buildspec_lambda.yml` para construir e empacotar as funções Lambda.
+
+2. **Deploy da Infraestrutura:**
+   - Utiliza o `template.yaml` para deployar recursos como Lambdas, Buckets S3, Tabelas DynamoDB e repositórios ECR.
+
+3. **Build da API NestJS:**
+   - Utiliza o arquivo `buildspec-nest.yml` para construir a aplicação NestJS.
+   - A imagem resultante é enviada para o repositório ECR criado na etapa anterior.
+
+4. **Configuração do App Runner:**
+   - É necessário criar um **App Runner** e registrar a imagem do ECR.
+   - O App Runner é configurado para atualizar automaticamente sempre que uma nova imagem é enviada ao repositório ECR.
+
+### Arquivos `buildspec`
+
+- **buildspec_lambda.yml**: Para construir e empacotar as funções Lambda.
+- **buildspec-nest.yml**: Para construir e publicar a aplicação NestJS no Amazon ECR.
 
 ---
 
