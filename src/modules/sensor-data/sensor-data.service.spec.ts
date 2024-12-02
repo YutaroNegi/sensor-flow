@@ -75,7 +75,6 @@ describe('SensorDataService', () => {
       expect(dynamoDbMock.put).toHaveBeenCalledWith({
         TableName: 'SensorDataTable',
         Item: {
-          id: 'unique-id',
           equipmentId: dto.equipmentId,
           timestamp: dto.timestamp,
           value: dto.value,
@@ -84,7 +83,6 @@ describe('SensorDataService', () => {
       });
       expect(result).toEqual({
         message: 'Data saved successfully',
-        id: 'unique-id',
       });
     });
 
@@ -105,7 +103,6 @@ describe('SensorDataService', () => {
       expect(dynamoDbMock.put).toHaveBeenCalledWith({
         TableName: 'SensorDataTable',
         Item: {
-          id: 'unique-id',
           equipmentId: dto.equipmentId,
           timestamp: dto.timestamp,
           value: dto.value,

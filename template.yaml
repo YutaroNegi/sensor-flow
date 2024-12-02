@@ -16,15 +16,15 @@ Resources:
   SensorFlowDataTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub "sensor-flow-data-table-${Env}"
+      TableName: !Sub "sensor-flow-data-${Env}"
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
-        - AttributeName: id
+        - AttributeName: equipmentId
           AttributeType: S
         - AttributeName: timestamp
           AttributeType: S
       KeySchema:
-        - AttributeName: id
+        - AttributeName: equipmentId
           KeyType: HASH
         - AttributeName: timestamp
           KeyType: RANGE
@@ -68,15 +68,15 @@ Resources:
   SensorFlowDataTestTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub "sensor-flow-data-table-test"
+      TableName: !Sub "sensor-flow-test-${Env}"
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
-        - AttributeName: id
+        - AttributeName: equipmentId
           AttributeType: S
         - AttributeName: timestamp
           AttributeType: S
       KeySchema:
-        - AttributeName: id
+        - AttributeName: equipmentId
           KeyType: HASH
         - AttributeName: timestamp
           KeyType: RANGE
