@@ -41,7 +41,7 @@ export class AuthController {
         maxAge: 3600 * 1000,
       });
 
-      return res.send({ message: 'Login successful' });
+      return res.status(200).send({ message: 'Login successful' });
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -50,7 +50,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @Get('me')
   async getMe(@Request() req: any, @Headers() headers: any, @Res() res: Response) {
-    return res.send({ message: 'ok' });
+    return res.status(200).send({ message: 'ok' });
   }
 
   @Post('logout')
@@ -61,6 +61,6 @@ export class AuthController {
       sameSite: 'none',
       path: '/',
     });
-    return res.send({ message: 'Logout successful' });
+    return res.status(200).send({ message: 'Logout successful' });
   }
 }
