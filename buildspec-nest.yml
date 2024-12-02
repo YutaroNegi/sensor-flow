@@ -12,20 +12,25 @@ phases:
     commands:
       - echo "Login ECR..."
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
+      - echo "Login Docker Hub..."
+      - echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo "IMAGE_TAG=$IMAGE_TAG" > env.properties
+
   build:
     commands:
       - echo "build phase..."
       - docker build -t sensor-flow-repo-$Env:latest .
       - docker tag sensor-flow-repo-$Env:latest $ECR_REPOSITORY_URI:latest
       - docker tag sensor-flow-repo-$Env:latest $ECR_REPOSITORY_URI:$IMAGE_TAG
+
   post_build:
     commands:
       - echo "post build phase..."
       - docker push $ECR_REPOSITORY_URI:latest
       - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
       - echo "IMAGE_TAG=$IMAGE_TAG" >> env.properties
+
 artifacts:
   files:
     - env.properties
