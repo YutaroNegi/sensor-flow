@@ -379,6 +379,9 @@ O projeto inclui testes de integração para garantir o funcionamento correto do
 - Deploy da aplicação em múltiplas regiões para melhorar disponibilidade e latência.
 - Melhora a disponibilidade e a latência em diferentes regiões
 
+## Cache com Redis
+- Adição de um cache Redis para armazenar dados temporários e acelerar o acesso a dados frequentemente acessados.
+- Comparado ao nestjs-cache, o Redis oferece mais flexibilidade e escalabilidade.
 
 ## **Testes de Carga**
 
