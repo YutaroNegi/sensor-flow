@@ -58,6 +58,58 @@ Resources:
           Projection:
             ProjectionType: ALL
 
+
+  # resources for test environment
+  SensorFlowTestBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "sensor-flow-bucket-test"
+
+  SensorFlowDataTestTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "sensor-flow-data-table-test"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: timestamp
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: timestamp
+          KeyType: RANGE
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+  SensorFlowAggregatedTestTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "sensor-flow-aggregated-test"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: equipmentId
+          AttributeType: S
+        - AttributeName: intervalStartTime
+          AttributeType: N
+        - AttributeName: partitionKey
+          AttributeType: S
+      KeySchema:
+        - AttributeName: equipmentId
+          KeyType: HASH
+        - AttributeName: intervalStartTime
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: partitionKey-intervalStartTime-index
+          KeySchema:
+            - AttributeName: partitionKey
+              KeyType: HASH
+            - AttributeName: intervalStartTime
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+
   EtlCsvFunction:
     Type: AWS::Serverless::Function
     Properties:
