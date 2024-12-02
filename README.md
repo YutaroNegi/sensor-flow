@@ -2,9 +2,9 @@
 
 **Sensor Flow API** é uma API desenvolvida para receber, processar e gerenciar registros de sensores.
 
-![System Design](./system-design.png)
+System Design Atual:
 
----
+![System Design](./system-design.png)
 
 ## Funcionalidades Implementadas
 
@@ -302,3 +302,26 @@ O projeto inclui testes de integração para garantir o funcionamento correto do
     - Upload bem-sucedido de um arquivo CSV válido.
     - Rejeição de uploads sem arquivos.
     - Rejeição de uploads com arquivos não CSV.
+
+# Pensado em escala global:
+
+![System Design v2](./system-design-v2.png)
+
+# Principais Mudanças
+
+## ECS Fargate
+- Alteração do App Runner para ECS Fargate.
+- Proporciona uma escalabilidade mais eficiente e com maior controle.
+- Integrando com ALB ao ECS Fargate permite distribuir as requisições de maneira eficiente.
+
+## Application Load Balancer
+- Adição de um Application Load Balancer para distribuir o tráfego entre os containers da aplicação
+- Oferece suporte a roteamento inteligente e balanceamento de carga eficiente.
+
+## S3 Pre-Signed URL
+- Alteração no método de upload de arquivos para utilizar pre-signed URLs
+- Aplicação não precise lidar com o upload de arquivos, apenas com a geração de URLs para que os usuários possam fazer o upload diretamente para o S3, desafogando a aplicação
+
+## Deploy multi-regional
+- Deploy da aplicação em múltiplas regiões para melhorar disponibilidade e latência.
+- Melhora a disponibilidade e a latência em diferentes regiões
