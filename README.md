@@ -2,6 +2,8 @@
 
 **Sensor Flow API** é uma API desenvolvida para receber, processar e gerenciar registros de sensores.
 
+![System Design](./system-design.png)
+
 ---
 
 ## Funcionalidades Implementadas
