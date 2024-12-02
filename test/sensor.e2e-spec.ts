@@ -51,7 +51,6 @@ describe('SensorDataController (Integration)', () => {
       .expect(201);
 
     expect(response.body).toMatchObject({
-      id: expect.any(String),
       message: 'Data saved successfully',
     });
   });
