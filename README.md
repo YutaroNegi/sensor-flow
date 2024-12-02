@@ -164,6 +164,7 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
 - **AWS S3**
 - **AWS Lambda**
 - **Python**
+- **AWS APP Runner**
 
 ---
 
@@ -212,3 +213,38 @@ Existem dois arquivos `buildspec` para gerenciar diferentes partes da aplicaçã
    ```bash
    npm run start
    ```
+
+---
+
+## Testes de Integração
+
+O projeto inclui testes de integração para garantir o funcionamento correto dos principais endpoints e funcionalidades. Para executar os testes, siga os passos abaixo:
+
+**Execute os testes:**
+   ```bash
+   npm run test:e2e
+   ```
+
+### Testes de integração
+
+- **Health module integration tests**
+  - Verifica se o endpoint raiz (`/`) está funcionando corretamente, retornando `200` com a resposta esperada.
+
+- **Auth module integration tests**
+  - Testa o fluxo de autenticação:
+    - Login bem-sucedido e recebimento do cookie de autenticação.
+    - Falha no login com credenciais incorretas.
+    - Logout e remoção do cookie de autenticação.
+    - Acesso negado a rotas protegidas após logout.
+- **Sensor aggregated data module integration tests**
+  - Testa a recuperação de dados agregados com diferentes intervalos de tempo (`24h`, `48h`, `1w`, `1m`) e valida respostas de sucesso.
+  - Verifica o retorno de erro `400` para intervalos inválidos.
+
+- **Sensor data module integration tests**
+  - Testa o registro de dados de sensores:
+    - Criação bem-sucedida de dados de sensores.
+    - Falha ao criar dados de sensores com payload inválido.
+  - Testa o upload de arquivos CSV:
+    - Upload bem-sucedido de um arquivo CSV válido.
+    - Rejeição de uploads sem arquivos.
+    - Rejeição de uploads com arquivos não CSV.
