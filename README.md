@@ -2,6 +2,33 @@
 
 **Sensor Flow API** é uma API desenvolvida para receber, processar e gerenciar registros de sensores.
 
+Aqui está um texto claro e objetivo para o README explicando como acessar a aplicação:
+
+---
+
+## **Como Acessar a Aplicação**
+
+A aplicação Sensor Flow está disponível na Vercel e pode ser acessada através do link abaixo:
+
+🔗 [Sensor Flow - Frontend](https://sensor-flow-front.vercel.app)
+
+### **Credenciais de Acesso**
+
+Você pode utilizar um dos seguintes usuários para fazer login:
+
+1. **Usuário:** `test-user`  
+   **Senha:** `test-1234`
+
+2. **Usuário:** `radix`  
+   **Senha:** `Radix2024@`
+
+---
+
+### **O que você pode fazer na aplicação**
+- **Visualizar dados de sensores.**
+- **Consultar estatísticas e gráficos.**
+- **Explorar dados agregados em diferentes intervalos de tempo.**
+
 System Design Atual:
 
 ![System Design](./system-design.png)
