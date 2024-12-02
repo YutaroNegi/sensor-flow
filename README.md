@@ -233,13 +233,12 @@ A pipeline de CI/CD é acionada por commits na branch main. O processo de build 
 
 ## Requisições Automáticas para Máquinas
 
-Para que máquinas ou scripts automatizados possam interagir com a API, é necessário realizar a autenticação e enviar os dados seguindo uma lógica específica. Abaixo, detalhamos como realizar essas requisições utilizando Python.
+Para que máquinas ou scripts automatizados possam interagir com a API, é necessário realizar a autenticação e enviar os dados seguindo uma lógica específica.
 
-### Passo a Passo
 
-#### **1. Autenticação para Obter o Token**
+#### **Autenticação para Obter o Token para Máquinas**
 
-Primeiro, é necessário obter um token de acesso utilizando as credenciais do cliente (Client ID e Client Secret).
+Exemplo de autenticação para obter o token de acesso para máquinas:
 
 ```python
 import requests
