@@ -114,7 +114,6 @@ describe('SensorDataService', () => {
 
   describe('uploadCsvFile', () => {
     it('should upload a csv file successfully', async () => {
-      // Arrange
       const file: any = {
         fieldname: 'file',
         originalname: 'data.csv',
@@ -133,10 +132,8 @@ describe('SensorDataService', () => {
         promise: jest.fn().mockResolvedValue({}),
       } as any);
 
-      // Act
       const result = await service.uploadCsvFile(file);
 
-      // Assert
       expect(s3Mock.putObject).toHaveBeenCalledWith({
         Bucket: 'sensor-data-bucket',
         Key: 'unique-id-data.csv',
@@ -147,7 +144,6 @@ describe('SensorDataService', () => {
     });
 
     it('should return error when S3 fails ', async () => {
-      // Arrange
       const file: any = {
         fieldname: 'file',
         originalname: 'data.csv',
@@ -163,7 +159,6 @@ describe('SensorDataService', () => {
         promise: jest.fn().mockRejectedValue(new Error('S3 Error')),
       } as any);
 
-      // Act & Assert
       await expect(service.uploadCsvFile(file)).rejects.toThrow(
         'Error uploading file to S3: S3 Error',
       );
