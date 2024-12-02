@@ -28,7 +28,45 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
   - Realiza o logout do usuário.
   - Remove o cookie de autenticação.
 
+## Autenticação para máquinas
+
+Para que máquinas ou scripts automatizados possam interagir com a API, é necessário realizar a autenticação seguindo uma lógica específica.
+
+#### **Autenticação para Obter o Token para Máquinas**
+
+Exemplo de autenticação para obter o token de acesso para máquinas:
+
+```python
+import requests
+import random
+import uuid
+from datetime import datetime, timedelta
+
+# Substitua pelos valores corretos
+auth_url = ''
+client_id = ''
+client_secret = ''
+
+auth_payload = {
+    "grant_type": "client_credentials",
+    "client_id": client_id,
+    "client_secret": client_secret,
+    "scope": "default-m2m-resource-server-mztddy/read"
+}
+
+auth_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+
+response = requests.post(auth_url, data=auth_payload, headers=auth_headers)
+
+if response.status_code == 200:
+    token = response.json().get('access_token')
+    print("Token obtido com sucesso!")
+else:
+    print(f"Erro ao obter o token: {response.status_code} {response.text}")
+    exit()
+```
 ---
+
 
 ### **Registro de Sensores**
 
@@ -44,11 +82,10 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
     }
     ```
   - Armazena os dados no **DynamoDB** com as colunas:
-    - `id` (UUID gerado automaticamente)
     - `equipmentId`
     - `timestamp`
     - `value`
-    - `register_time`
+    - `registerTime`
 
 - **POST `/sensor-data/upload-csv`**
   - Recebe um arquivo CSV contendo as colunas:
@@ -56,7 +93,6 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
     - `timestamp`
     - `value`
   - Armazena o arquivo CSV no **AWS S3** para processamento posterior via Lambda.
-  - Retorna uma mensagem de sucesso e o nome do arquivo armazenado.
 
 ---
 
@@ -229,46 +265,6 @@ A pipeline de CI/CD é acionada por commits na branch main. O processo de build 
    npm run start
    ```
 
----
-
-## Requisições Automáticas para Máquinas
-
-Para que máquinas ou scripts automatizados possam interagir com a API, é necessário realizar a autenticação e enviar os dados seguindo uma lógica específica.
-
-
-#### **Autenticação para Obter o Token para Máquinas**
-
-Exemplo de autenticação para obter o token de acesso para máquinas:
-
-```python
-import requests
-import random
-import uuid
-from datetime import datetime, timedelta
-
-# Substitua pelos valores corretos
-auth_url = ''
-client_id = ''
-client_secret = ''
-
-auth_payload = {
-    "grant_type": "client_credentials",
-    "client_id": client_id,
-    "client_secret": client_secret,
-    "scope": "default-m2m-resource-server-mztddy/read"
-}
-
-auth_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-
-response = requests.post(auth_url, data=auth_payload, headers=auth_headers)
-
-if response.status_code == 200:
-    token = response.json().get('access_token')
-    print("Token obtido com sucesso!")
-else:
-    print(f"Erro ao obter o token: {response.status_code} {response.text}")
-    exit()
-```
 ---
 
 ## Testes de Integração
