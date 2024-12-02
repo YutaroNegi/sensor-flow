@@ -30,7 +30,7 @@
 
 # Sensor Flow API
 
-**Sensor Flow API** é uma API desenvolvida para receber, processar e gerenciar registros de sensores.
+**Sensor Flow API** é uma API para receber, processar e gerenciar registros de sensores.
 
 ![Demo](./using-app.gif)
 
@@ -64,7 +64,7 @@ Você pode utilizar um dos seguintes usuários para fazer login:
 ## Funcionalidades Implementadas
 
 ### **Autenticação**
-A API conta com um sistema de autenticação baseado em **Cognito**, com suporte a cookies HTTP-only para segurança. A autenticação atual permite:
+A API conta com um sistema de autenticação baseado em Cognito, com suporte a cookies HTTP-only para segurança. A autenticação permite:
 
 - **Login**: Autenticação de usuários utilizando `username` e `password`.
   - Gera um token JWT com validade de 1 hora.
@@ -73,9 +73,9 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
 #### **Endpoints**
 
 - **POST `/auth/login`**
-  - Realiza o login utilizando credenciais no formato Basic Auth.
+  - Realiza o login utilizando Basic Auth.
   - Retorna uma mensagem de sucesso e configura o cookie com o token.
-  - O token JWT armazenado no cookie é validado utilizando o **Cognito JWKS URI**.
+  - O token JWT armazenado no cookie é validado utilizando o cognito.
 
 - **GET `/auth/me`**
   - Retorna as informações do usuário autenticado.
@@ -87,7 +87,7 @@ A API conta com um sistema de autenticação baseado em **Cognito**, com suporte
 
 ## Autenticação para máquinas
 
-Para que máquinas ou scripts automatizados possam interagir com a API, é necessário realizar a autenticação seguindo uma lógica específica.
+Para que máquinas ou scripts automatizados possam interagir com a API, é necessário realizar:
 
 #### **Autenticação para Obter o Token para Máquinas**
 
@@ -196,8 +196,8 @@ Também foi adicionado um exemplo de envio de dados de sensores localizado em [.
 
 ### **Processamento de Arquivos com Lambda**
 
-Uma função Lambda em Python é responsável por processar os arquivos CSV enviados para o S3. Esta função:
-- Lê o arquivo CSV utilizando `pandas`.
+Um Lambda em py é processa arquivos CSV enviados para o S3. Esta função:
+- Lê o CSV utilizando pandas.
 - Insere cada linha do arquivo no DynamoDB com as colunas:
   - `equipmentId`
   - `timestamp`
@@ -208,12 +208,12 @@ Uma função Lambda em Python é responsável por processar os arquivos CSV envi
 
 ### **Popular Dados Agregados**
 
-Uma função Lambda em python é acionada via **DynamoDB Streams** para popular a tabela de agregados com base nos dados da tabela de escrita. Esta função:
+Lambda em py é acionada via dynamo stream para popular a tabela de agregados. está função
 
-1. Processa eventos do **DynamoDB Streams**.
+1. Processa eventos do dynamo stream.
 2. Para cada evento:
    - Extrai as informações do equipamento, timestamp e valor.
-   - Determina o intervalo de tempo (`intervalStart` arredondado para a hora cheia).
+   - Determina o intervalo de tempo.
    - Atualiza ou cria o registro correspondente na tabela de agregados.
 3. A tabela de agregados tem as seguintes colunas:
    - `partitionKey`: Valor fixo (`GLOBAL`) para consultas eficientes.
@@ -231,16 +231,9 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
 1. **Auth Module**:
    - Implementa a autenticação via Cognito.
    - Inclui estratégias JWT para validação.
-   - Contém:
-     - `AuthController`
-     - `AuthService`
-     - `JwtStrategy`
 
 2. **SensorData Module**:
    - Gerencia o registro de dados de sensores e upload de arquivos CSV.
-   - Contém:
-     - `SensorDataController`
-     - `SensorDataService`
 
 3. **App Module**:
    - Ponto de entrada principal da aplicação.
@@ -265,21 +258,21 @@ A aplicação foi projetada com uma estrutura modular utilizando o framework **N
 
 ## Infraestrutura e CI/CD
 
-A aplicação utiliza **AWS SAM** para definição da infraestrutura como código e **AWS CodeBuild** para pipelines de CI/CD. A seguir, detalhamos os principais arquivos de configuração utilizados.
+utiliza **AWS SAM** para definição da infraestrutura como código e **AWS CodeBuild** para pipelines de CI/CD.
 
 ### Infraestrutura com AWS SAM
 
-O arquivo `template.yaml` define os recursos necessários na AWS para a aplicação **Sensor Flow**, incluindo buckets S3, tabelas DynamoDB, funções Lambda e repositórios ECR.
+`template.yaml` define os recursos necessários na AWS para a aplicação, incluindo S3, DynamoDB, Lambda e repositórios ECR.
 
 ### Pipelines de Build com AWS CodeBuild
 
 A pipeline de CI/CD é acionada por commits na branch main. O processo de build segue os seguintes passos:
 
 1. **Build dos Lambdas:**
-   - Utiliza o arquivo `buildspec_lambda.yml` para construir e empacotar as funções Lambda.
+   - Utiliza o arquivo `buildspec_lambda.yml` para construir as funções Lambda.
 
 2. **Deploy da Infraestrutura:**
-   - Utiliza o `template.yaml` para deployar recursos como Lambdas, Buckets S3, Tabelas DynamoDB e repositórios ECR.
+   - Utiliza o `template.yaml` para deployar recursos como Lambdas, S3, DynamoDB e repositórios ECR.
 
 3. **Build da API NestJS:**
    - Utiliza o arquivo `buildspec-nest.yml` para construir a aplicação NestJS.
@@ -329,7 +322,7 @@ A pipeline de CI/CD é acionada por commits na branch main. O processo de build 
 
 ## Testes de Integração
 
-O projeto inclui testes de integração para garantir o funcionamento correto dos principais endpoints e funcionalidades. Para executar os testes, siga os passos abaixo:
+O projeto inclui testes de integração. Para executar os testes, siga os passos abaixo:
 
 **Execute os testes:**
    ```bash
@@ -339,7 +332,7 @@ O projeto inclui testes de integração para garantir o funcionamento correto do
 ### Testes de integração
 
 - **Health module integration tests**
-  - Verifica se o endpoint raiz (`/`) está funcionando corretamente, retornando `200` com a resposta esperada.
+  - Verifica se o endpoint /
 
 - **Auth module integration tests**
   - Testa o fluxo de autenticação:
@@ -350,7 +343,6 @@ O projeto inclui testes de integração para garantir o funcionamento correto do
 
 - **Sensor aggregated data module integration tests**
   - Testa a recuperação de dados agregados com diferentes intervalos de tempo (`24h`, `48h`, `1w`, `1m`) e valida respostas de sucesso.
-  - Verifica o retorno de erro `400` para intervalos inválidos.
 
 - **Sensor data module integration tests**
   - Testa o registro de dados de sensores:
