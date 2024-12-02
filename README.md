@@ -400,9 +400,5 @@ em seguida, acesse `http://localhost:8089` para configurar e iniciar os testes d
 
 Resultados dos testes de carga utilizando o Locust com diferentes volumes de requisições:
 
-- [Baixar relatório: 500 requisições](locust/locust-500-users.html)
-- [Baixar relatório: 1.000 requisições](locust/locust-1000-users.html)
-- [Baixar relatório: 5.000 requisições](locust/locust-5000-users.html)
-- [Baixar relatório: 10.000 requisições](locust/locust-10000-users.html)
-
-Para visualizar, faça o download do arquivo e abra-o no navegador da sua máquina.
+- [Baixar relatório](locust/locust-reports.zip)
+Para visualizar, faça o download do arquivo descompacte e abra os arquivos html em um navegador.
