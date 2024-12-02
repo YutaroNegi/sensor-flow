@@ -1,10 +1,37 @@
+# **Sumário**
+
+1. [Sensor Flow API](#sensor-flow-api)  
+2. [Como Acessar a Aplicação](#como-acessar-a-aplicação)  
+   - [Credenciais de Acesso](#credenciais-de-acesso)  
+   - [O que você pode fazer na aplicação](#o-que-você-pode-fazer-na-aplicação)  
+3. [System Design Atual](#system-design-atual)  
+4. [Funcionalidades Implementadas](#funcionalidades-implementadas)  
+   - [Autenticação](#autenticação)  
+   - [Autenticação para Máquinas](#autenticação-para-máquinas)  
+   - [Registro de Sensores](#registro-de-sensores)  
+   - [Listagem de Dados Agregados](#listagem-de-dados-agregados)  
+   - [Processamento de Arquivos com Lambda](#processamento-de-arquivos-com-lambda)  
+   - [Popular Dados Agregados](#popular-dados-agregados)  
+5. [Estrutura Modular](#estrutura-modular)  
+6. [Tecnologias Utilizadas](#tecnologias-utilizadas)  
+7. [Infraestrutura e CI/CD](#infraestrutura-e-cicd)  
+   - [Infraestrutura com AWS SAM](#infraestrutura-com-aws-sam)  
+   - [Pipelines de Build com AWS CodeBuild](#pipelines-de-build-com-aws-codebuild)  
+   - [Arquivos buildspec](#arquivos-buildspec)  
+8. [Como Executar o Projeto](#como-executar-o-projeto)  
+9. [Testes de Integração](#testes-de-integração)  
+10. [Pensado em Escala Global](#pensado-em-escala-global)  
+11. [Principais Mudanças](#principais-mudanças)  
+    - [ECS Fargate](#ecs-fargate)  
+    - [Application Load Balancer](#application-load-balancer)  
+    - [S3 Pre-Signed URL](#s3-pre-signed-url)  
+    - [Deploy Multi-Regional](#deploy-multi-regional)  
+12. [Testes de Carga](#testes-de-carga) 
+
 # Sensor Flow API
 
 **Sensor Flow API** é uma API desenvolvida para receber, processar e gerenciar registros de sensores.
 
-Aqui está um texto claro e objetivo para o README explicando como acessar a aplicação:
-
----
 
 ## **Como Acessar a Aplicação**
 
@@ -29,7 +56,7 @@ Você pode utilizar um dos seguintes usuários para fazer login:
 - **Consultar estatísticas e gráficos.**
 - **Explorar dados agregados em diferentes intervalos de tempo.**
 
-System Design Atual:
+# System Design Atual:
 
 ![System Design](./system-design.png)
 
@@ -167,7 +194,6 @@ else:
 Uma função Lambda em Python é responsável por processar os arquivos CSV enviados para o S3. Esta função:
 - Lê o arquivo CSV utilizando `pandas`.
 - Insere cada linha do arquivo no DynamoDB com as colunas:
-  - `id` (UUID gerado automaticamente)
   - `equipmentId`
   - `timestamp`
   - `value`
