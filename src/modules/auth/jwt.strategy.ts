@@ -15,6 +15,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             return headerToken;
           }
 
+          if (!request.cookies) {
+            return null;
+          }
+          
           return request.cookies['Authentication'];
         },
       ]),
