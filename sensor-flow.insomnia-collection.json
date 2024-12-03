@@ -1,0 +1,350 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2024-12-03T08:55:40.765Z",
+  "__export_source": "insomnia.desktop.app:v2023.4.0",
+  "resources": [
+    {
+      "_id": "req_ad9ffb58b2b246ae8f95dcd977be225b",
+      "parentId": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "modified": 1733064638366,
+      "created": 1732964767848,
+      "url": "{{ _.api_url }}/",
+      "name": "Health",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "eyJraWQiOiJoSFFUdzloMXdSZ1g0ckJubDBCS0ZmSHdLUFJoVTFodEEweVAyaXZId1dVPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIyc2Y2dm0zbTMzMzdrOWxlc3FmdGozdGthdSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiZGVmYXVsdC1tMm0tcmVzb3VyY2Utc2VydmVyLW16dGRkeVwvcmVhZCIsImF1dGhfdGltZSI6MTczMjk2ODk2MSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfRDJVb2J3NHJpIiwiZXhwIjoxNzMyOTcyNTYxLCJpYXQiOjE3MzI5Njg5NjEsInZlcnNpb24iOjIsImp0aSI6ImU1NjM5ZjE5LWMyYjUtNDkyOC1iZGFkLWVmMzI0ZTg2MmJmZCIsImNsaWVudF9pZCI6IjJzZjZ2bTNtMzMzN2s5bGVzcWZ0ajN0a2F1In0.zEUSrtTOxMcOif-AM4x3aSTYArqjKPpz3xhv9u9cXxquWK4ncsqw3WNOlqzoxrQAckJRhKnW5zadhHhoVnLtKosOvkG7kbXA8rEgZ_WxIoqFjN8Iju-r5JDNE5KJCWXRmABTrylGmOCYTbNjGfN5WhnftHFgm6t6Ph7zVEOgkrZE0cDmnhE31TSiSyAGjFWyBQhmsKnq2JJ-645ZHfrDgADMdyNgll6QrcsD4ubCls7GtnfSWFlCIFhKo9P4Yqbzj0CQoJp4Bz6YPGTs6mPpvQwKi1G7_VojAYusILLxjm-dS0Vt4zILFKfMB6Mf3cVZF6g4comyc5i0lRzWQ2W55Q",
+        "prefix": "",
+        "disabled": false
+      },
+      "metaSortKey": -1732964767848,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "parentId": null,
+      "modified": 1732964762826,
+      "created": 1732964762826,
+      "name": "Radix",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_f6db2cde01014becb77e3ee2fe6d8fa4",
+      "parentId": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "modified": 1733127500340,
+      "created": 1732972490136,
+      "url": "{{ _.api_url }}/auth/login",
+      "name": "Login",
+      "description": "",
+      "method": "POST",
+      "body": { "mimeType": "application/json", "text": "" },
+      "parameters": [],
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "test-user",
+        "password": "test-1234"
+      },
+      "metaSortKey": -1730610833520,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_4a44b505ffde40faa348d897c00013a1",
+      "parentId": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "modified": 1732989604212,
+      "created": 1732989601004,
+      "url": "{{ _.api_url }}/auth/logout",
+      "name": "Logout",
+      "description": "",
+      "method": "POST",
+      "body": { "mimeType": "application/json", "text": "" },
+      "parameters": [],
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "radix",
+        "password": "Radix2024@"
+      },
+      "metaSortKey": -1730022349938,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_23fba20bcb61438f9cd940e0fcc0252e",
+      "parentId": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "modified": 1732978652574,
+      "created": 1732978599530,
+      "url": "{{ _.api_url }}/auth/me",
+      "name": "me",
+      "description": "",
+      "method": "GET",
+      "body": { "mimeType": "application/json", "text": "" },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_c7f4aeeec0e24ac5b56aa5ff7b1093a7"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1729433866356,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_8b467a38f8ff47c3a6715f3201937f67",
+      "parentId": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "modified": 1733135418750,
+      "created": 1732983341198,
+      "url": "{{ _.api_url }}/sensor-data",
+      "name": "Save data",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"equipmentId\": \"EQ-12495\",\n\t\"timestamp\": \"2024-11-25T04:30:00.000-05:00\",\n\t\"value\": 78.42\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_c7f4aeeec0e24ac5b56aa5ff7b1093a7"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "eyJraWQiOiJoSFFUdzloMXdSZ1g0ckJubDBCS0ZmSHdLUFJoVTFodEEweVAyaXZId1dVPSIsImFsZyI6IlJTMjU2In0",
+        "disabled": true
+      },
+      "metaSortKey": -1728845382774,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_59f8a3592e9a4f21860a595d75622ad4",
+      "parentId": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "modified": 1733083417714,
+      "created": 1733042178126,
+      "url": "{{ _.api_url }}/sensor-data-aggregated",
+      "name": "Get",
+      "description": "",
+      "method": "GET",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"equipmentId\": \"EQ-12495\",\n\t\"timestamp\": \"2023-02-15T01:30:00.000-05:00\",\n\t\"value\": 78.42\n}"
+      },
+      "parameters": [
+        {
+          "id": "pair_781d5a3f03c04ea8b12fd2e286c96799",
+          "name": "interval",
+          "value": "1m",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_c7f4aeeec0e24ac5b56aa5ff7b1093a7"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1728698261878.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_938488ab9b8b475a8cb438f932ce896f",
+      "parentId": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "modified": 1733130012144,
+      "created": 1732992492777,
+      "url": "{{ _.api_url }}/sensor-data/upload-csv",
+      "name": "Upload CSV",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "id": "pair_d06c039abcda4098a4d2bbf02ffc9f95",
+            "name": "file",
+            "value": "",
+            "description": "",
+            "type": "file",
+            "fileName": "C:\\Users\\ysousa\\Downloads\\tmp\\radix.csv",
+            "disabled": true
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [{ "name": "Content-Type", "value": "multipart/form-data" }],
+      "authentication": {},
+      "metaSortKey": -1728551140983,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_28c66b8ebdab6e72947a4a5dd6b7a4c92d914faa",
+      "parentId": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "modified": 1732964762828,
+      "created": 1732964762828,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1732964762828,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_28c66b8ebdab6e72947a4a5dd6b7a4c92d914faa",
+      "parentId": "wrk_602e81db46b747ac96211dbe6a50e453",
+      "modified": 1733149182822,
+      "created": 1732964762830,
+      "name": "Default Jar",
+      "cookies": [
+        {
+          "key": "Authentication",
+          "value": "eyJraWQiOiJXaHVwNnNMNDBlZ0VpaDVJY0szMVRha09DK05zU20wM1hFTVQxelVUb1BvPSIsImFsZyI6IlJTMjU2In0.eyJvcmlnaW5fanRpIjoiZmQ4YTY2NzAtMjIyYS00ZmZmLThlN2UtM2I0YmEzNmM2NTgxIiwic3ViIjoiODQzODQ0ZjgtNzBhMS03MGI3LTY4MzUtYjlkY2MyMTkxNTc0IiwiYXVkIjoiMnNmNnZtM20zMzM3azlsZXNxZnRqM3RrYXUiLCJldmVudF9pZCI6ImI3ODJkMzExLTFjZWMtNDA4YS05OTExLWMzOWM2MTc1MDNhNiIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzMzMTQ5MTkwLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9EMlVvYnc0cmkiLCJjb2duaXRvOnVzZXJuYW1lIjoidGVzdC11c2VyIiwiZXhwIjoxNzMzMjM1NTkwLCJpYXQiOjE3MzMxNDkxOTAsImp0aSI6IjkwNTZhMDAyLTg5ZjItNDg0Yi04NTNkLTY3ZWEwY2IzM2Y5MyJ9.JRQWykT0ALHYmIWd20eru6QI0t8kvZAGjBhkeaYJVnaCukx0ejjRocu7ebRbdaxq7LEaWkDDK0rxl5oBYzj4aHRw0GWpcoZOhQiJdPndc8mbu3bPnhAVviBLlaO-v_FDEJZITN1rjcF74Vn76OcPM2xR8LVDSwZzaOq0EZ-GZm3iB_o6cZVMwATp9fnMrlXRcinoGRDr9GU4yDQjc0wx54KCxA2HynE_m2waN_t0MTZQIh3Fyu87Af5GrINAluNCMRhbfmcBhpxLq8Vax0IDhiPBaXyE3trmyAEjATOkyEVD1hfMMTkvwL-TAGrcUs0rY9-Cposg6q8GfvbOyzSVww",
+          "expires": "2024-12-02T15:19:42.000Z",
+          "maxAge": 3600,
+          "domain": "localhost",
+          "path": "/",
+          "httpOnly": true,
+          "extensions": ["SameSite=None"],
+          "hostOnly": true,
+          "creation": "2024-11-30T13:32:28.142Z",
+          "lastAccessed": "2024-12-02T14:19:42.822Z",
+          "id": "05417951882312977"
+        },
+        {
+          "key": "Authentication",
+          "value": "eyJraWQiOiJXaHVwNnNMNDBlZ0VpaDVJY0szMVRha09DK05zU20wM1hFTVQxelVUb1BvPSIsImFsZyI6IlJTMjU2In0.eyJvcmlnaW5fanRpIjoiOGZmYWU4NWEtMTNiYi00MDgwLWExYzYtMDhmZmY0NjJhYTc4Iiwic3ViIjoiODQzODQ0ZjgtNzBhMS03MGI3LTY4MzUtYjlkY2MyMTkxNTc0IiwiYXVkIjoiMnNmNnZtM20zMzM3azlsZXNxZnRqM3RrYXUiLCJldmVudF9pZCI6IjA4MzMzMGNkLWM1NGMtNDM0ZC1hNmEyLTYwYjc3ZDMyZGE5YSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzMzMTM4MzQ4LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9EMlVvYnc0cmkiLCJjb2duaXRvOnVzZXJuYW1lIjoidGVzdC11c2VyIiwiZXhwIjoxNzMzMjI0NzQ4LCJpYXQiOjE3MzMxMzgzNDgsImp0aSI6IjNlZjgwMWEzLWMyNjEtNDAyYS05NDYxLTQ1YjJhZDhjMTQ4YyJ9.CGW96Zntopn2gcYdkZcQxwuWaJ4wdLk8yu95pNnRjtkZV9Q9BcL9RxuqLLbwfXfLgFjvk1imfQhcONGaS7nsQ-XyyZKasKIcwMd7TZJSts4lWzXsCCsCUny3YUVZGd_-gPY8vY0bzcqonHCgHtJbjyUGGm8bBmJ_QUjX6LrupG5ZENOMz9Ksby7wnjJIlLKwMr-K3aWvW6uTn091wGIqDZPGdpWk3N2NU77YN2iWxVitDlDiw4ADMRGQfKKWZ_h-BuGfv8rcfgXdg9cWO6NJMzmNrC8-5kgA8bg1GuyRhjZVnQnl2l1O1iw8IPOortGZ8kirXxxIPG004hLA3ravqQ",
+          "expires": "2024-12-02T12:19:08.000Z",
+          "maxAge": 3600,
+          "domain": "ifavzkfw3r.us-east-1.awsapprunner.com",
+          "path": "/",
+          "secure": true,
+          "httpOnly": true,
+          "extensions": ["SameSite=None"],
+          "hostOnly": true,
+          "creation": "2024-12-01T13:14:35.275Z",
+          "lastAccessed": "2024-12-02T11:19:00.907Z",
+          "id": "9417773345858678"
+        },
+        {
+          "key": "Authentication",
+          "value": "eyJraWQiOiJXaHVwNnNMNDBlZ0VpaDVJY0szMVRha09DK05zU20wM1hFTVQxelVUb1BvPSIsImFsZyI6IlJTMjU2In0.eyJvcmlnaW5fanRpIjoiMjFhZTZlMzYtZWFiZi00MjNkLWE3ZDEtODZkMjJlMjliMmQ2Iiwic3ViIjoiODQzODQ0ZjgtNzBhMS03MGI3LTY4MzUtYjlkY2MyMTkxNTc0IiwiYXVkIjoiMnNmNnZtM20zMzM3azlsZXNxZnRqM3RrYXUiLCJldmVudF9pZCI6IjAyMTE4YjA3LTE5NjQtNGQ0YS04NTNlLTU3ZWMwYTM2MjJjMSIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzMzMTQ5MTg3LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9EMlVvYnc0cmkiLCJjb2duaXRvOnVzZXJuYW1lIjoidGVzdC11c2VyIiwiZXhwIjoxNzMzMjM1NTg2LCJpYXQiOjE3MzMxNDkxODcsImp0aSI6ImM5ZTZmMzU3LWJiN2QtNDhjNS1hNTdiLWY2YTQzNzlmODQ0NSJ9.dckSjzn-8O022OnnncBp0qqkr0Ubf6VY5sxtsYjTl7_-HB845sPrPfl-CWYxXmoZbj_eWcbQVicut0WIR0F0WIqS-aAmU61x3-N0A4bn3iInWeqcN3i58mV1_K1bLEv4FzKT9ulGdBYOcquYPaQh8S_GdrQtkMvfN7vvPCTvjcafqHsPBZooA_ZeUODTwEe0rgqR86PvsYTBuf0iba3BpsyDP_DGNcmtOdphV1kA1en-6sXjvJJGiuJhOkK2jvV5p2CljqtYesJIMy1NEDkzOrzsFhHzO75VNdYJI1Kw8OT2TxGOdVbvdBrcf-eYyz8OcZgS8vTX8RnG0k7ch10eEg",
+          "expires": "2024-12-02T15:19:47.000Z",
+          "maxAge": 3600,
+          "domain": "mc83rkq2t3.us-east-1.awsapprunner.com",
+          "path": "/",
+          "secure": true,
+          "httpOnly": true,
+          "extensions": ["SameSite=None"],
+          "hostOnly": true,
+          "creation": "2024-12-02T12:25:25.217Z",
+          "lastAccessed": "2024-12-02T14:19:39.278Z",
+          "id": "6819956685974251"
+        }
+      ],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "env_22749859394745d58226e17419cde0b3",
+      "parentId": "env_28c66b8ebdab6e72947a4a5dd6b7a4c92d914faa",
+      "modified": 1733076632725,
+      "created": 1732964901018,
+      "name": "dev",
+      "data": {
+        "api_url": "http://localhost:4000",
+        "machine_clinet_id": "2sf6vm3m3337k9lesqftj3tkau",
+        "machine_client_secret": "b6ksa3hpla8p8jkmaggefbafkh68okh626npnrealimojorugeg"
+      },
+      "dataPropertyOrder": {
+        "&": ["api_url", "machine_clinet_id", "machine_client_secret"]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1732964901018,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_2480620441fc49d79ff6dae35fa18222",
+      "parentId": "env_28c66b8ebdab6e72947a4a5dd6b7a4c92d914faa",
+      "modified": 1733142319494,
+      "created": 1732964974362,
+      "name": "prod",
+      "data": {
+        "api_url": "https://mc83rkq2t3.us-east-1.awsapprunner.com",
+        "machine_clinet_id": "2sf6vm3m3337k9lesqftj3tkau",
+        "machine_client_secret": "b6ksa3hpla8p8jkmaggefbafkh68okh626npnrealimojorugeg"
+      },
+      "dataPropertyOrder": {
+        "&": ["api_url", "machine_clinet_id", "machine_client_secret"]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1732964901068,
+      "_type": "environment"
+    }
+  ]
+}

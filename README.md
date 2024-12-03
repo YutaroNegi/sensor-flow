@@ -2,6 +2,7 @@
 
 1. [Sensor Flow API](#sensor-flow-api)  
 2. [Como Acessar a Aplicação](#como-acessar-a-aplicação)  
+   - [Rotas exportadas do Insomnia](#rotas-exportadas-do-insomnia)
    - [Credenciais de Acesso](#credenciais-de-acesso)  
    - [O que você pode fazer na aplicação](#o-que-você-pode-fazer-na-aplicação)  
 3. [System Design Atual](#system-design-atual)  
@@ -41,6 +42,12 @@ A aplicação Sensor Flow está disponível na Vercel e pode ser acessada atrav�
 🔗 [Sensor Flow - Frontend](https://sensor-flow-front.vercel.app)
 
 URL da API: `https://mc83rkq2t3.us-east-1.awsapprunner.com/`
+
+### **Rotas exportadas do Insomnia**
+
+Também foi adicionado ao repo, um arquivo .json com as rotas da API exportadas do Insomnia, localizado em [./sensor-flow.insomnia-collection.json](./sensor-flow.insomnia-collection.json)
+
+obs: lembrar de preencher variáveis de ambiente no arquivo, como por exemplo api_url = https://mc83rkq2t3.us-east-1.awsapprunner.com/
 
 ### **Credenciais de Acesso**
 
