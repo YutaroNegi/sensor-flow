@@ -40,6 +40,8 @@ A aplicação Sensor Flow está disponível na Vercel e pode ser acessada atrav�
 
 🔗 [Sensor Flow - Frontend](https://sensor-flow-front.vercel.app)
 
+URL da API: `https://mc83rkq2t3.us-east-1.awsapprunner.com/`
+
 ### **Credenciais de Acesso**
 
 Você pode utilizar um dos seguintes usuários para fazer login:
